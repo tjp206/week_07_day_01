@@ -2,12 +2,12 @@
   <div id="app">
     <h1>ToDo's</h1>
     <form v-on:submit.prevent="saveNewItem">
-      <label for="new-item">Add a new item:</label>
-      <input type="text" id="new-item" v-model="newItem">
+      <label for="new-item">New to-do:</label>
+      <input type="text" id="new-item" v-model="newItem.name">
       <label for="radio" v-on:click="isHighPriority(index)">High</label>
-      <input type="radio" name="radio-button" id="radio-high">
-      <label for="radio" v-on:click="!isHighPriority(index)">Low</label>
-      <input type="radio" name="radio-button" id="radio-low">
+      <input type="radio" :value="true" name="radio-button" id="radio-high" v-model="newItem.isHighPriority">
+      <label for="radio">Low</label>
+      <input type="radio" :value="false" name="radio-button" id="radio-low" v-model="newItem.isHighPriority">
       <input type="submit" value="Save New Item">
     </form>
 
@@ -29,16 +29,22 @@ export default {
         {name: 'Wash the clothes', isHighPriority: true},
         {name: 'Make dinner', isHighPriority: false},
       ],
-      newItem: "",
+      newItem: {
+          name: '',
+          isHighPriority: false,
+      },
     };
   },
   methods: {
     saveNewItem: function () {
         this.items.push({
-          name: this.newItem, 
-          isHighPriority: false,
+          name: this.newItem.name, 
+          isHighPriority: this.newItem.isHighPriority,
         });
-        this.newItem = "";
+        this.newItem = {
+          name: '',
+          isHighPriority: false,
+        }
       },
       doneItem: function (index) {
         this.items[index].isHighPriority = true;
@@ -85,12 +91,12 @@ li button {
 }
 
 li.not-priority {
-  border: 2px solid #1a681e;
+  border: 4px solid #1a681e;
   color: #1a681e;
 }
 
 li.high-priority {
-  border: 2px solid #f2360c;
+  border: 4px solid #f2360c;
 }
 
 input[type="text"] {
