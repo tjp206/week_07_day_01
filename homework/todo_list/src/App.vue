@@ -31,7 +31,7 @@ export default {
       ],
       newItem: {
           name: '',
-          isHighPriority: false,
+          isHighPriority: '',
       },
     };
   },
@@ -43,7 +43,7 @@ export default {
         });
         this.newItem = {
           name: '',
-          isHighPriority: false,
+          isHighPriority: '',
         }
       },
       doneItem: function (index) {
