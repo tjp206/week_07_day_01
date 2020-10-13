@@ -1,25 +1,14 @@
 <template>
   <div id="app">
-    <ul>
-      <li v-for="(item, index) in items" v-bind:class="item.isPurchased ? 'purchased' : 'not-purchased'" :key="index">
-        <span>{{ item.name }}</span>
-        <span v-if="item.isPurchased">Purchased!</span>
-        <button v-if="!item.isPurchased" v-on:click="buyItem(index)">
-          Purchase
-          </button>
-          <button v-on:click="deleteItem(index)">Delete Item</button>
-        </li>
-    </ul>
+    <h1>My Shopping List</h1>
+    <shopping-list-item v-for="(item, index) in items" :key="index" :item="item"></shopping-list-item>
 
-    <form v-on:submit.prevent="saveNewItem">
-      <label for="new-item">Add a new item:</label>
-      <input type="text" id="new-item" v-model="newItem">
-      <input type="submit" value="Save New Item">
-    </form>
+
   </div>
 </template>
 
 <script>
+import ShoppingListItem from'./components/ShoppingListItem.vue'
 export default {
   data(){
     return {
@@ -30,6 +19,9 @@ export default {
       ],
       newItem: "",
     };
+  },
+  components: {
+    'shopping-list-item': ShoppingListItem
   },
   methods: {
     saveNewItem: function () {
